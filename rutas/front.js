@@ -92,28 +92,7 @@ router.get('/SignIn', async (req, res) => {
         res.send("Usuario o contraseña incorrecta");
     }
 });
-/*
-const Verificar = (req, res, next) => {
-    let { token } = req.query;
-    jwt.verify(token, secretKey, (err, decoded) => {
-        if (err) {
-            res.status(401).send({
-                error: "401 No Autorizado",
-                message: err.message,
-            })
-        } else {
-            req.user = decoded;
-            next();
-        };
 
-
-    })
-};
-
-
-router.get("/skaters-editar/:id", Verificar, (req, res) => {
-    res.send(` Bienvenido a Editar${req.user.data.email}`);
-});*/
 
 
 module.exports = router
