@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" 
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
+    crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/static/css/estilos.css" />
+  </head>
+  <body>
+    <h1>Skate Park</h1>
+
+    <div class="py-4">
+      <h2>Administración</h2>
+      <hr class="w-50" />
+
+      <table class="table w-50 m-auto">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Foto</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Años de experiencia</th>
+            <th scope="col">Especialidad</th>
+            <th scope="col">Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          {{#each user}}
+              <tr>
+                  <th>{{this.id}}</th>
+                  <td><div> <a> <img class="imgTable" src="/static/assets/img/{{this.foto}}" alt=""> </a> </div></td>
+                  <td>{{this.nombre}}</td>
+                  <td>{{this.anos_experiencia}}</td>
+                  <td>{{this.especialidad}}</td>
+                  {{#if this.estado}}
+                    <td><input id="inpCheck{{this.id}}" type="checkbox" onchange="ircheck({{this.id}})" value="{{this.estado}}" checked/></td>  
+                  {{else}}
+                    <td><input id="inpCheck{{this.id}}" type="checkbox" onchange="ircheck({{this.id}})" value="{{this.estado}}" /></td>
+                  {{/if}}                                 
+              </tr>
+          {{/each}}
+
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
+
+<script>
+function ircheck(id){
+    const estado = $("#inpCheck"+id).is(':checked')? true:false;
+    axios.put(`/check`, 
+        {
+          id: id,
+          estado: estado
+          
+        }
+        ).then((response) => {
+          console.log(response);            
+          alert("checkado")
+        }, (error) => {
+          console.log(error);
+          alert("Disculpe hubo un error editando")
+        });
+  }
+
+</script>
+  
